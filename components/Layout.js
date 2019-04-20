@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  children: {},
+  children: [],
   title: '',
   description: '',
 };
@@ -25,6 +25,9 @@ const Layout = ({ children, title, description }) => (
     <center>
       <table id="hnmain" border="0" cellPadding="0" cellSpacing="0" width="85%" bgcolor="#f6f6ef">
         <tbody>
+          <tr>
+            <td bgcolor="#000000" style={{ height: '5px' }} />
+          </tr>
           <tr>
             <td bgcolor="#ff6600">
               <table className="hnnav" border="0" cellPadding="0" cellSpacing="0" width="100%">
@@ -46,7 +49,9 @@ const Layout = ({ children, title, description }) => (
                     <td style={{ lineHeight: '10pt', height: '10px' }}>
                       <span className="pagetop">
                         <b className="hnname">
-                          <a>Hacker News</a>
+                          <Link href="/">
+                            <a>Hacker News</a>
+                          </Link>
                         </b>
                         <a>new</a> | <a>past</a> | <a>comments</a> | <a>ask</a> | <a>show</a> | <a>jobs</a> |{' '}
                         <a>submit</a>
@@ -123,6 +128,9 @@ const Layout = ({ children, title, description }) => (
       strong,
       b {
         font-weight: bold;
+      }
+      b a:visited {
+        color: #000000;
       }
       tbody {
         display: table-row-gorup;

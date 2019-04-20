@@ -1,22 +1,25 @@
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 
 const propTypes = {
   stories: PropTypes.array,
+  page: PropTypes.number,
 };
 
 const defaultProps = {
   stories: [],
+  page: 1,
 };
 
-const StoryList = ({ stories }) => (
+const StoryList = ({ stories, page }) => (
   <table border="0" cellPadding="0" cellSpacing="0" className="itemlist">
     <tbody>
       {stories.map((story, id) => (
         <Fragment key={story.id}>
           <tr className="athing">
             <td align="right" valign="top" className="title">
-              <span className="rank">{id + 1}.</span>
+              <span className="rank">{(page - 1) * 30 + (id + 1)}.</span>
             </td>
             <td className="votelinks">
               <center>
@@ -61,9 +64,11 @@ const StoryList = ({ stories }) => (
       <tr>
         <td colSpan="2" />
         <td className="title">
-          <a href="news?p=2" className="morelink" rel="next">
-            More
-          </a>
+          <Link href={`/?p=${page + 1}`}>
+            <a className="morelink" rel="next">
+              More
+            </a>
+          </Link>
         </td>
       </tr>
       <style jsx>{`
@@ -103,7 +108,6 @@ const StoryList = ({ stories }) => (
           color: #828282;
           text-decoration: none;
         }
-
         .default {
           font-family: Verdana, Geneva, sans-serif;
           font-size: 10pt;
@@ -124,7 +128,6 @@ const StoryList = ({ stories }) => (
           font-size: 7pt;
           color: #828282;
         }
-
         .pagetop {
           font-family: Verdana, Geneva, sans-serif;
           font-size: 10pt;

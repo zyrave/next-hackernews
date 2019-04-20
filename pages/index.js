@@ -7,32 +7,37 @@ import StoryList from '../components/StoryList';
 
 const propTypes = {
   stories: PropTypes.array,
+  page: PropTypes.number,
 };
 
 const defaultProps = {
   stories: [],
+  page: '',
 };
 
-const Index = ({ stories }) => {
+const Index = ({ stories, page }) => {
+  // const [itemNo, setItemNo] = useState(1);
   if (stories.length === 0) {
     return <Error statusCode={503} />;
   }
   return (
     <Layout title="Hacker News" description="A Hacker News clone made with Next.js">
-      <StoryList stories={stories} />
+      <StoryList stories={stories} page={page} />
     </Layout>
   );
 };
 
-Index.getInitialProps = async () => {
+Index.getInitialProps = async ({ query }) => {
   let stories = [];
+  let page;
   try {
-    const res = await fetch(`https://node-hnapi.herokuapp.com/news?page=1`);
+    page = Number(query.p) || 1;
+    const res = await fetch(`https://node-hnapi.herokuapp.com/news?page=${page}`);
     stories = await res.json();
   } catch (err) {
     console.log(err);
   }
-  return { stories };
+  return { stories, page };
 };
 
 Index.propTypes = propTypes;
