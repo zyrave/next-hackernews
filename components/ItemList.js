@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 
 const propTypes = {
-  stories: PropTypes.array,
+  items: PropTypes.array,
   page: PropTypes.number,
 };
 
 const defaultProps = {
-  stories: [],
+  items: [],
   page: 1,
 };
 
-const StoryList = ({ stories, page }) => (
+const ItemList = ({ items, page }) => (
   <table border="0" cellPadding="0" cellSpacing="0" className="itemlist">
     <tbody>
-      {stories.map((story, id) => (
-        <Fragment key={story.id}>
+      {items.map((data, id) => (
+        <Fragment key={data.id}>
           <tr className="athing">
             <td align="right" valign="top" className="title">
               <span className="rank">{(page - 1) * 30 + (id + 1)}.</span>
@@ -29,14 +29,14 @@ const StoryList = ({ stories, page }) => (
               </center>
             </td>
             <td className="title">
-              <a href={story.url} className="storylink">
-                {story.title}
+              <a href={data.url} className="storylink">
+                {data.title}
               </a>
               <span className="sitebit comhead">
                 {' '}
                 (
-                <a href={`from?site=${story.domain}`}>
-                  <span>{story.domain}</span>
+                <a href={`from?site=${data.domain}`}>
+                  <span>{data.domain}</span>
                 </a>
                 )
               </span>
@@ -45,15 +45,15 @@ const StoryList = ({ stories, page }) => (
           <tr>
             <td colSpan="2" />
             <td className="subtext">
-              <span className="score">{story.points || 0} points</span> by{' '}
-              <a href={`user?id=${story.user}`} className="hnuser">
-                {story.user}
+              <span className="score">{data.points || 0} points</span> by{' '}
+              <a href={`user?id=${data.user}`} className="hnuser">
+                {data.user}
               </a>
               <span className="age">
-                <a href={`item?id=${story.id}`}> {story.time_ago}</a>
+                <a href={`item?id=${data.id}`}> {data.time_ago}</a>
               </span>
-              <span /> | <a href={`hide?id=${story.id}&goto=news`}>hide</a> |{' '}
-              <a href={`/story?id=${story.id}`}>{story.comments_count || 0} comments</a>
+              <span /> | <a href={`hide?id=${data.id}&goto=news`}>hide</a> |{' '}
+              <a href={`/item?id=${data.id}`}>{data.comments_count || 0} comments</a>
             </td>
           </tr>
           <tr className="spacer" style={{ height: '5px' }} />
@@ -263,7 +263,7 @@ const StoryList = ({ stories, page }) => (
   </table>
 );
 
-StoryList.propTypes = propTypes;
-StoryList.defaultProps = defaultProps;
+ItemList.propTypes = propTypes;
+ItemList.defaultProps = defaultProps;
 
-export default StoryList;
+export default ItemList;

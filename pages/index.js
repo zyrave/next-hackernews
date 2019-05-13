@@ -2,42 +2,39 @@ import fetch from 'isomorphic-fetch';
 import Error from 'next/error';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ItemList from '../components/ItemList';
 import Layout from '../components/Layout';
-import StoryList from '../components/StoryList';
 
 const propTypes = {
-  stories: PropTypes.array,
+  items: PropTypes.array,
   page: PropTypes.number,
 };
 
 const defaultProps = {
-  stories: [],
+  items: [],
   page: '',
 };
 
-const Index = ({ stories, page }) => {
-  // const [itemNo, setItemNo] = useState(1);
-  if (stories.length === 0) {
-    return <Error statusCode={503} />;
-  }
+const Index = ({ items, page }) => {
+  if (items.length === 0) return <Error statusCode={503} />;
   return (
     <Layout title="Hacker News" description="A Hacker News clone made with Next.js">
-      <StoryList stories={stories} page={page} />
+      <ItemList items={items} page={page} />
     </Layout>
   );
 };
 
 Index.getInitialProps = async ({ query }) => {
-  let stories = [];
+  let items = [];
   let page;
   try {
     page = Number(query.p) || 1;
     const res = await fetch(`https://node-hnapi.herokuapp.com/news?page=${page}`);
-    stories = await res.json();
+    items = await res.json();
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
-  return { stories, page };
+  return { items, page };
 };
 
 Index.propTypes = propTypes;

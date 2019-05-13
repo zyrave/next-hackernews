@@ -25,9 +25,7 @@ const Layout = ({ children, title, description }) => (
     <center>
       <table id="hnmain" border="0" cellPadding="0" cellSpacing="0" width="85%" bgcolor="#f6f6ef">
         <tbody>
-          <tr>
-            <td bgcolor="#000000" style={{ height: '5px' }} />
-          </tr>
+          <tr>{/* <td bgcolor="#000000" style={{ height: '5px' }} /> */}</tr>
           <tr>
             <td bgcolor="#ff6600">
               <table className="hnnav" border="0" cellPadding="0" cellSpacing="0" width="100%">
